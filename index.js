@@ -1,16 +1,17 @@
-const Web3 = require("web3")
+//check address balance using ethrsjs library every 10 seconds and if its larger than 1 ETH send email to you
+const Ethres = require("ethers")
 const nodemailer = require("nodemailer")
 require("dotenv").config()
 
 const currentDateTime = new Date().toLocaleString()
 
-const web3 = new Web3(new Web3.providers.HttpProvider(process.env.PROVIDER))
+const provider = new Ethres.providers.JsonRpcProvider(process.env.PROVIDER)
 
 const address = process.env.ADDRESS
 
 const checkBalance = async () => {
-  const balance = await web3.eth.getBalance(address)
-  const balanceInEth = web3.utils.fromWei(balance, "ether")
+  const balance = await provider.getBalance(address)
+  const balanceInEth = Ethres.utils.formatEther(balance)
   console.log(currentDateTime, balanceInEth)
   if (balanceInEth > 100) {
     sendEmail()
