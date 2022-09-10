@@ -1,6 +1,7 @@
 ## Check Balance and send email
 
-check address balance every 10 seconds and if its larger than 1 ETH send email to you
+*check address balance every 10 seconds and if its larger than 100 ETH send email to you*
+
 
 ### clone this repo
 
