@@ -2,16 +2,20 @@ const Web3 = require("web3")
 const nodemailer = require("nodemailer")
 require("dotenv").config()
 
-const currentDateTime = new Date().toLocaleString()
+let currentDateTime
 
 const web3 = new Web3(new Web3.providers.HttpProvider(process.env.PROVIDER))
 
 const address = process.env.ADDRESS
 
 const checkBalance = async () => {
+  currentDateTime = new Date().toLocaleString()
+
   const balance = await web3.eth.getBalance(address)
   const balanceInEth = web3.utils.fromWei(balance, "ether")
+
   console.log(currentDateTime, balanceInEth)
+
   if (balanceInEth > 100) {
     sendEmail()
   }
