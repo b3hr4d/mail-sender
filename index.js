@@ -3,16 +3,20 @@ const Ethres = require("ethers")
 const nodemailer = require("nodemailer")
 require("dotenv").config()
 
-const currentDateTime = new Date().toLocaleString()
+let currentDateTime
 
 const provider = new Ethres.providers.JsonRpcProvider(process.env.PROVIDER)
 
 const address = process.env.ADDRESS
 
 const checkBalance = async () => {
+  currentDateTime = new Date().toLocaleString()
+
   const balance = await provider.getBalance(address)
   const balanceInEth = Ethres.utils.formatEther(balance)
+
   console.log(currentDateTime, balanceInEth)
+
   if (balanceInEth > 100) {
     sendEmail()
   }
